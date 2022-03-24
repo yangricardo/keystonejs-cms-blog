@@ -135,6 +135,7 @@ type Post {
     skip: Int! = 0
   ): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+  category: Category
 }
 
 type Post_content_Document {
@@ -158,6 +159,7 @@ input PostWhereInput {
   publishDate: DateTimeNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
+  category: CategoryWhereInput
 }
 
 input StringNullableFilter {
@@ -219,6 +221,7 @@ input PostUpdateInput {
   publishDate: DateTime
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
+  category: CategoryRelateToOneForUpdateInput
 }
 
 input UserRelateToOneForUpdateInput {
@@ -234,6 +237,12 @@ input TagRelateToManyForUpdateInput {
   connect: [TagWhereUniqueInput!]
 }
 
+input CategoryRelateToOneForUpdateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
+  disconnect: Boolean
+}
+
 input PostUpdateArgs {
   where: PostWhereUniqueInput!
   data: PostUpdateInput!
@@ -246,6 +255,7 @@ input PostCreateInput {
   publishDate: DateTime
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
+  category: CategoryRelateToOneForCreateInput
 }
 
 input UserRelateToOneForCreateInput {
@@ -256,6 +266,11 @@ input UserRelateToOneForCreateInput {
 input TagRelateToManyForCreateInput {
   create: [TagCreateInput!]
   connect: [TagWhereUniqueInput!]
+}
+
+input CategoryRelateToOneForCreateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
 }
 
 type Tag {
@@ -303,6 +318,51 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type Category {
+  id: ID!
+  name: String
+  posts(
+    where: PostWhereInput! = {}
+    orderBy: [PostOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Post!]
+  postsCount(where: PostWhereInput! = {}): Int
+}
+
+input CategoryWhereUniqueInput {
+  id: ID
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  posts: PostManyRelationFilter
+}
+
+input CategoryOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input CategoryUpdateInput {
+  name: String
+  posts: PostRelateToManyForUpdateInput
+}
+
+input CategoryUpdateArgs {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateInput!
+}
+
+input CategoryCreateInput {
+  name: String
+  posts: PostRelateToManyForCreateInput
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -330,6 +390,15 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createCategory(data: CategoryCreateInput!): Category
+  createCategories(data: [CategoryCreateInput!]!): [Category]
+  updateCategory(
+    where: CategoryWhereUniqueInput!
+    data: CategoryUpdateInput!
+  ): Category
+  updateCategories(data: [CategoryUpdateArgs!]!): [Category]
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteCategories(where: [CategoryWhereUniqueInput!]!): [Category]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -384,6 +453,14 @@ type Query {
   ): [Tag!]
   tag(where: TagWhereUniqueInput!): Tag
   tagsCount(where: TagWhereInput! = {}): Int
+  categories(
+    where: CategoryWhereInput! = {}
+    orderBy: [CategoryOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Category!]
+  category(where: CategoryWhereUniqueInput!): Category
+  categoriesCount(where: CategoryWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

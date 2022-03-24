@@ -40,9 +40,11 @@ import { Lists } from '.keystone/types';
 import { UserList } from './user-list';
 import { PostList } from './post-list';
 import { TagList } from './tag-list';
+import { CategoryList } from './category-list';
 
 export const lists: Lists = {
   User: UserList,
   Post: PostList,
   Tag: TagList,
+  Category: CategoryList,
 };

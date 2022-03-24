@@ -52,6 +52,16 @@ const PostList = list({
             },
             many: true,
         }),
+        category: relationship({
+            ref: 'Category.posts',
+            ui: {
+                displayMode: 'cards',
+                cardFields: ['name'],
+                inlineEdit: { fields: ['name'] },
+                linkToItem: true,
+                inlineConnect: true,  
+            }
+        })
     }
 })
 
