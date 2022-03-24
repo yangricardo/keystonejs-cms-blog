@@ -36,26 +36,13 @@ import { document } from '@keystone-6/fields-document';
 // our types to a stricter subset that is type-aware of other lists in our schema
 // that Typescript cannot easily infer.
 import { Lists } from '.keystone/types';
+
 import { UserList } from './user-list';
 import { PostList } from './post-list';
+import { TagList } from './tag-list';
 
-// We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
-// Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
-// with the value being the definition of the list, including the fields.
 export const lists: Lists = {
-  // Here we define the user list.
   User: UserList,
-  // Our second list is the Posts list. We've got a few more fields here
-  // so we have all the info we need for displaying posts.
   Post: PostList,
-  // Our final list is the tag list. This field is just a name and a relationship to posts
-  Tag: list({
-    ui: {
-      isHidden: true,
-    },
-    fields: {
-      name: text(),
-      posts: relationship({ ref: 'Post.tags', many: true }),
-    },
-  }),
+  Tag: TagList,
 };
