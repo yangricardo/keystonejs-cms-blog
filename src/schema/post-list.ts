@@ -36,7 +36,7 @@ const PostList = list({
                 cardFields: ['name', 'email'],
                 inlineEdit: { fields: ['name', 'email'] },
                 linkToItem: true,
-                inlineCreate: { fields: ['name', 'email'] },
+                inlineConnect: true, // Habilita a conexáo com select
             },
         }),
         // We also link posts to tags. This is a many <=> many linking.
