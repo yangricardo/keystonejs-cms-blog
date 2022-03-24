@@ -9,7 +9,7 @@ import { config } from '@keystone-6/core';
 // Keystone auth is configured separately - check out the basic auth setup we are importing from our auth file.
 import { withAuth, session } from '../../auth';
 // Look in the schema file for how we define our lists, and how users interact with them through graphql or the Admin UI
-import { lists } from '../../schema';
+import { lists } from '../schema';
 
 import { db } from './db';
 
