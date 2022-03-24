@@ -11,13 +11,11 @@ import { withAuth, session } from '../../auth';
 // Look in the schema file for how we define our lists, and how users interact with them through graphql or the Admin UI
 import { lists } from '../../schema';
 
+import { db } from './db';
+
 export const keystoneServer = withAuth(
     config({
-        // the db sets the database provider - we're using sqlite for the fastest startup experience
-        db: {
-            provider: 'sqlite',
-            url: 'file:./keystone.db',
-        },
+        db,
         // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
         ui: {
              // For our starter, we check that someone has session data before letting them see the Admin UI.
