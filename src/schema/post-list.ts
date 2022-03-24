@@ -7,8 +7,8 @@ const PostList = list({
         title: text(),
         status: select({
             options: [
-                {value: 'Published', label: 'published'},
-                {value: 'Draft', label: 'draft'},
+                {label: 'Published', value: 'published'},
+                {label: 'Draft', value: 'draft'},
             ],
             defaultValue: 'draft',
             // fields also have the ability to configure their appearance in the Admin UI
