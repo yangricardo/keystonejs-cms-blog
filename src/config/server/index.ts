@@ -1,7 +1,8 @@
 import { BaseKeystoneTypeInfo, ServerConfig } from "@keystone-6/core/types";
 import { formatISO, secondsToMinutes, secondsToHours } from "date-fns";
+import { Env } from './../env';
 
-export const buildServerConfiguration = (): ServerConfig<BaseKeystoneTypeInfo> => {
+export const buildServerConfiguration = ({ PORT }: Env): ServerConfig<BaseKeystoneTypeInfo> => {
     return {
         healthCheck: {
             path: "/_healthcheck",
@@ -17,6 +18,6 @@ export const buildServerConfiguration = (): ServerConfig<BaseKeystoneTypeInfo> =
             })
         },
         cors: true,
-        port: 4000,
+        port: PORT,
     }
 }

@@ -1,6 +1,7 @@
 import { BaseKeystoneTypeInfo, CreateRequestContext } from "@keystone-6/core/types"
 import { Express } from "express";
 import { Request } from "./types";
+import routes from "../../express/routes";
 
 export const extendsExpressApp = (
     app: Express, 
@@ -10,5 +11,5 @@ export const extendsExpressApp = (
         req.context = await createContext(req, res);
         next();
     });
-    // app.use("/rest", routes);
+    app.use("/rest", routes);
 }
