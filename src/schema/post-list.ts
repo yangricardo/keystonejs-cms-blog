@@ -1,10 +1,14 @@
 import { list } from '@keystone-6/core';
 import { relationship, select, text, timestamp } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
+import { s3File, s3Image } from '@k6-contrib/fields-s3';
+import { s3Config } from './../config/s3Config';
 
 const PostList = list({
     fields: {
         title: text(),
+        image: s3Image({ s3Config }),
+        file: s3File({ s3Config }),
         status: select({
             options: [
                 {label: 'Published', value: 'published'},

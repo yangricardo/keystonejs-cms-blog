@@ -124,6 +124,8 @@ input PostRelateToManyForCreateInput {
 type Post {
   id: ID!
   title: String
+  image: S3ImageFieldOutput
+  file: S3FileFieldOutput
   status: String
   content: Post_content_Document
   publishDate: DateTime
@@ -138,6 +140,30 @@ type Post {
   category: Category
 }
 
+interface S3ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: S3ImageExtension!
+  ref: String!
+  url: String!
+}
+
+enum S3ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+interface S3FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
+}
+
 type Post_content_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
@@ -147,6 +173,23 @@ scalar DateTime
 
 input PostWhereUniqueInput {
   id: ID
+}
+
+type S3ImageFieldOutputType implements S3ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: S3ImageExtension!
+  ref: String!
+  url: String!
+}
+
+type S3FileFieldOutputType implements S3FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
 }
 
 input PostWhereInput {
@@ -216,12 +259,29 @@ input PostOrderByInput {
 
 input PostUpdateInput {
   title: String
+  image: S3ImageFieldInput
+  file: S3FileFieldInput
   status: String
   content: JSON
   publishDate: DateTime
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
   category: CategoryRelateToOneForUpdateInput
+}
+
+input S3ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input S3FileFieldInput {
+  upload: Upload
+  ref: String
 }
 
 input UserRelateToOneForUpdateInput {
@@ -250,6 +310,8 @@ input PostUpdateArgs {
 
 input PostCreateInput {
   title: String
+  image: S3ImageFieldInput
+  file: S3FileFieldInput
   status: String
   content: JSON
   publishDate: DateTime
