@@ -12,11 +12,13 @@ generator client {
 }
 
 model User {
-  id       String @id @default(cuid())
-  name     String @default("")
-  email    String @unique @default("")
-  password String
-  posts    Post[] @relation("Post_author")
+  id                      String     @id @default(cuid())
+  name                    String     @default("")
+  email                   String     @unique @default("")
+  password                String
+  posts                   Post[]     @relation("Post_author")
+  from_Category_updatedBy Category[] @relation("Category_updatedBy")
+  from_Category_createdBy Category[] @relation("Category_createdBy")
 }
 
 model Post {
@@ -51,7 +53,14 @@ model Tag {
 }
 
 model Category {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_category")
+  id          String  @id @default(cuid())
+  name        String  @default("")
+  posts       Post[]  @relation("Post_category")
+  updatedBy   User?   @relation("Category_updatedBy", fields: [updatedById], references: [id])
+  updatedById String? @map("updatedBy")
+  createdBy   User?   @relation("Category_createdBy", fields: [createdById], references: [id])
+  createdById String? @map("createdBy")
+
+  @@index([updatedById])
+  @@index([createdById])
 }

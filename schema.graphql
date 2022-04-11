@@ -396,6 +396,8 @@ type Category {
     skip: Int! = 0
   ): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
+  updatedBy: User
+  createdBy: User
 }
 
 input CategoryWhereUniqueInput {
@@ -409,6 +411,8 @@ input CategoryWhereInput {
   id: IDFilter
   name: StringFilter
   posts: PostManyRelationFilter
+  updatedBy: UserWhereInput
+  createdBy: UserWhereInput
 }
 
 input CategoryOrderByInput {

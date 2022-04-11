@@ -5,6 +5,8 @@ import {
     password,
 } from '@keystone-6/core/fields';
 
+import { byTracking } from '@k6-contrib/list-plugins';
+
 const UserList = list({
     // Here are the fields that `User` will have. We want an email and password so they can log in
     // a name so we can refer to them, and a way to connect users to posts.
