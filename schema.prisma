@@ -37,6 +37,8 @@ model Post {
   tags            Tag[]     @relation("Post_tags")
   category        Category? @relation("Post_category", fields: [categoryId], references: [id])
   categoryId      String?   @map("category")
+  updatedAt       DateTime? @updatedAt
+  createdAt       DateTime? @default(now())
 
   @@index([authorId])
   @@index([categoryId])

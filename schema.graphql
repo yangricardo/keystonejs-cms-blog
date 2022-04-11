@@ -138,6 +138,8 @@ type Post {
   ): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
   category: Category
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 interface S3ImageFieldOutput {
@@ -203,6 +205,8 @@ input PostWhereInput {
   author: UserWhereInput
   tags: TagManyRelationFilter
   category: CategoryWhereInput
+  updatedAt: DateTimeNullableFilter
+  createdAt: DateTimeNullableFilter
 }
 
 input StringNullableFilter {
@@ -255,6 +259,8 @@ input PostOrderByInput {
   title: OrderDirection
   status: OrderDirection
   publishDate: OrderDirection
+  updatedAt: OrderDirection
+  createdAt: OrderDirection
 }
 
 input PostUpdateInput {

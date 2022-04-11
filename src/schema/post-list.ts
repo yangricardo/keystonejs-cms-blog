@@ -3,12 +3,19 @@ import { relationship, select, text, timestamp } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
 import { s3File, s3Image } from '@k6-contrib/fields-s3';
 import { s3Config } from './../config/s3Config';
+import { atTracking } from '@k6-contrib/list-plugins';
 
-const PostList = list({
+const withAtTracking = atTracking({});
+
+const PostList = list(withAtTracking({
     fields: {
         title: text(),
-        image: s3Image({ s3Config }),
-        file: s3File({ s3Config }),
+        image: s3Image({ 
+            s3Config,
+        }),
+        file: s3File({ 
+            s3Config,
+        }),
         status: select({
             options: [
                 {label: 'Published', value: 'published'},
@@ -66,8 +73,8 @@ const PostList = list({
                 inlineConnect: true,  
             }
         })
-    }
-})
+    },
+}));
 
 
 export { PostList };
