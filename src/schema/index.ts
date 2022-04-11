@@ -29,7 +29,7 @@ import {
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
 // custom ones.
-import { document } from '@keystone-6/fields-document';
+// import { document } from '@keystone-6/fields-document';
 
 // We are using Typescript, and we want our types experience to be as strict as it can be.
 // By providing the Keystone generated `Lists` type to our lists object, we refine
