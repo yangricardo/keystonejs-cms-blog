@@ -351,6 +351,10 @@ type Tag {
     skip: Int! = 0
   ): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
+  updatedAt: DateTime
+  createdAt: DateTime
+  updatedBy: User
+  createdBy: User
 }
 
 input TagWhereUniqueInput {
@@ -364,11 +368,17 @@ input TagWhereInput {
   id: IDFilter
   name: StringFilter
   posts: PostManyRelationFilter
+  updatedAt: DateTimeNullableFilter
+  createdAt: DateTimeNullableFilter
+  updatedBy: UserWhereInput
+  createdBy: UserWhereInput
 }
 
 input TagOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  updatedAt: OrderDirection
+  createdAt: OrderDirection
 }
 
 input TagUpdateInput {

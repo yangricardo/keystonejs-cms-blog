@@ -17,6 +17,8 @@ model User {
   email                   String     @unique @default("")
   password                String
   posts                   Post[]     @relation("Post_author")
+  from_Tag_updatedBy      Tag[]      @relation("Tag_updatedBy")
+  from_Tag_createdBy      Tag[]      @relation("Tag_createdBy")
   from_Category_updatedBy Category[] @relation("Category_updatedBy")
   from_Category_createdBy Category[] @relation("Category_createdBy")
 }
@@ -47,9 +49,18 @@ model Post {
 }
 
 model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags")
+  id          String    @id @default(cuid())
+  name        String    @default("")
+  posts       Post[]    @relation("Post_tags")
+  updatedAt   DateTime? @updatedAt
+  createdAt   DateTime? @default(now())
+  updatedBy   User?     @relation("Tag_updatedBy", fields: [updatedById], references: [id])
+  updatedById String?   @map("updatedBy")
+  createdBy   User?     @relation("Tag_createdBy", fields: [createdById], references: [id])
+  createdById String?   @map("createdBy")
+
+  @@index([updatedById])
+  @@index([createdById])
 }
 
 model Category {
